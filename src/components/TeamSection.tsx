@@ -55,11 +55,8 @@ const TeamSection = () => {
             >
               <div className="glass-card p-8 text-center hover:border-primary/30 transition-all duration-300">
                 {/* Avatar */}
-                <div className="relative mx-auto mb-6">
-                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center text-4xl mx-auto">
-                    {member.avatar}
-                  </div>
-                  <div className="absolute -inset-2 rounded-full border border-primary/20 group-hover:border-primary/40 transition-colors" />
+                <div className="w-[60%] aspect-square rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center text-6xl mx-auto mb-6">
+                  {member.avatar}
                 </div>
                 
                 {/* Info */}
