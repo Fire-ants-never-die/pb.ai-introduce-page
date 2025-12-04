@@ -1,9 +1,13 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import dashboardImage from '@/assets/dashboard-main.jpg';
+import { Button } from '@/components/ui/button';
+import EarlyAccessModal from './EarlyAccessModal';
 
 const HeroSection = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start']
@@ -14,33 +18,50 @@ const HeroSection = () => {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col items-center justify-center px-6 py-24 overflow-hidden">
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(222,47%,6%)] via-background to-background" />
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] opacity-30"
-        style={{
-          background: 'radial-gradient(ellipse at center, hsl(217, 91%, 60%) 0%, transparent 60%)'
-        }}
-      />
-      
-      {/* Content */}
-      <div className="relative z-10 text-center max-w-5xl mx-auto mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            기관급 투자 분석,
-            <br />
-            <span className="text-primary">이제 당신의 책상 위에서.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            검증된 가치평가 모델과 생성형 AI의 만남.
-          </p>
-        </motion.div>
-      </div>
+    <>
+      <section ref={ref} className="relative min-h-screen flex flex-col items-center justify-center px-6 py-24 overflow-hidden">
+        {/* Animated background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(222,47%,6%)] via-background to-background" />
+        <div 
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] opacity-30"
+          style={{
+            background: 'radial-gradient(ellipse at center, hsl(217, 91%, 60%) 0%, transparent 60%)'
+          }}
+        />
+        
+        {/* Content */}
+        <div className="relative z-10 text-center max-w-5xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              기관급 투자 분석,
+              <br />
+              <span className="text-primary">이제 당신의 책상 위에서.</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              검증된 가치평가 모델과 생성형 AI의 만남.
+            </p>
+            
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Button
+                onClick={() => setIsModalOpen(true)}
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-6 text-lg rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 group"
+              >
+                Get Early Access
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
       
       {/* Floating Browser Window */}
       <motion.div
@@ -88,7 +109,10 @@ const HeroSection = () => {
           />
         </div>
       </motion.div>
-    </section>
+      </section>
+      
+      <EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 };
 
