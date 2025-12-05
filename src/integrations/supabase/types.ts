@@ -14,23 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      early_access_emails: {
-        Row: {
-          id: number
-          email: string
-          created_at: string
-        }
-        Insert: {
-          id?: number
-          email: string
-          created_at?: string
-        }
-        Update: {
-          id?: number
-          email?: string
-          created_at?: string
-        }
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
