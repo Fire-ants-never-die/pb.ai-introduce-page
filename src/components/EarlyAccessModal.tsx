@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface EarlyAccessModalProps {
   isOpen: boolean;
@@ -17,7 +18,7 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       toast({
         title: "유효하지 않은 이메일",
@@ -28,40 +29,85 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
     }
 
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "등록 완료!",
-      description: "얼리 액세스 신청이 완료되었습니다. 곧 연락드리겠습니다.",
-    });
-    
-    setEmail('');
-    setIsSubmitting(false);
-    onClose();
+
+    try {
+      // 실무 방법 1: Supabase에 저장
+      const { error } = await supabase
+        .from('early_access_emails')
+        .insert([{ email, created_at: new Date().toISOString() }]);
+
+      if (error) {
+        // 테이블이 없거나 에러 발생 시
+        console.error('Supabase error:', error);
+
+        // 실무 방법 2: 백엔드 API 호출 (예시)
+        // const response = await fetch('/api/early-access', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ email })
+        // });
+        // if (!response.ok) throw new Error('API 호출 실패');
+
+        // 실무 방법 3: 이메일 마케팅 서비스 API (예시 - Mailchimp)
+        // const response = await fetch('https://us1.api.mailchimp.com/3.0/lists/{list_id}/members', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Authorization': `Bearer ${MAILCHIMP_API_KEY}`,
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify({ email_address: email, status: 'subscribed' })
+        // });
+
+        // 개발 중에는 로컬 스토리지에 임시 저장
+        const existingEmails = JSON.parse(localStorage.getItem('early_access_emails') || '[]');
+        existingEmails.push({ email, timestamp: new Date().toISOString() });
+        localStorage.setItem('early_access_emails', JSON.stringify(existingEmails));
+
+        toast({
+          title: "등록 완료!",
+          description: "얼리 액세스 신청이 완료되었습니다. (개발 모드: 로컬 저장)",
+        });
+      } else {
+        toast({
+          title: "등록 완료!",
+          description: "얼리 액세스 신청이 완료되었습니다. 곧 연락드리겠습니다.",
+        });
+      }
+
+      setEmail('');
+      onClose();
+    } catch (error) {
+      console.error('Error submitting email:', error);
+      toast({
+        title: "오류 발생",
+        description: "신청 중 문제가 발생했습니다. 다시 시도해주세요.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          {/* Backdrop - 화면 전체를 덮는 배경 */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm"
           />
-          
-          {/* Modal */}
+
+          {/* Modal - 화면 정중앙에 배치 */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md"
+            className="relative w-full max-w-md"
           >
             <div className="glass-card p-8 relative">
               {/* Close button */}
@@ -71,7 +117,7 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
               >
                 <X className="w-5 h-5" />
               </button>
-              
+
               {/* Content */}
               <div className="text-center mb-6">
                 <h2 className="text-2xl font-bold mb-2">얼리 액세스 신청</h2>
@@ -81,7 +127,7 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
                   출시 알림과 특별 혜택을 받아보실 수 있습니다.
                 </p>
               </div>
-              
+
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <Input
@@ -99,13 +145,13 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
                   {isSubmitting ? '처리 중...' : '신청하기'}
                 </Button>
               </form>
-              
+
               <p className="text-xs text-muted-foreground text-center mt-4">
                 신청 시 개인정보 처리방침에 동의하는 것으로 간주됩니다.
               </p>
             </div>
           </motion.div>
-        </>
+        </div>
       )}
     </AnimatePresence>
   );
