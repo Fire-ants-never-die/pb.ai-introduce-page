@@ -11,18 +11,16 @@ const Footer = () => {
           
           {/* Links */}
           <nav className="flex items-center gap-6">
-            <span className="text-sm text-muted-foreground cursor-default">
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              서비스 소개
+            </a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               이용약관
-            </span>
-            <span className="text-sm text-muted-foreground cursor-default">
+            </a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               개인정보처리방침
-            </span>
-            <a 
-              href="https://forms.gle/7wYvkg6iB3KUtbjV6" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
+            </a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               문의하기
             </a>
           </nav>
