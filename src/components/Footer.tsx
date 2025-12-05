@@ -8,23 +8,31 @@ const Footer = () => {
             <span className="text-2xl font-bold text-foreground">PB.</span>
             <span className="text-2xl font-bold text-primary">ai</span>
           </div>
-          
+
           {/* Links */}
           <nav className="flex items-center gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              서비스 소개
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <span
+              onClick={(e) => e.preventDefault()}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+            >
               이용약관
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            </span>
+            <span
+              onClick={(e) => e.preventDefault()}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+            >
               개인정보처리방침
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            </span>
+            <a
+              href="https://forms.gle/7wYvkg6iB3KUtbjV6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
               문의하기
             </a>
           </nav>
-          
+
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
             © 2025 BullAnts. All rights reserved.
