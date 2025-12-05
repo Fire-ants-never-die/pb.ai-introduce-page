@@ -34,7 +34,6 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
       // 실무 방법 1: Supabase에 저장
       const { error } = await supabase
         .from('early_access_emails')
-        // @ts-expect-error - Supabase 타입 생성 대기 중
         .insert({ email });
 
       if (error) {

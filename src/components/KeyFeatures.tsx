@@ -1,35 +1,37 @@
 import { motion } from 'framer-motion';
 import { LayoutDashboard, BarChart3, TrendingUp, Scale } from 'lucide-react';
-import chatImage from '@/assets/chat-interface.jpg';
-import portfolioImage from '@/assets/portfolio-page.jpg';
+import overviewImage from '@/assets/feature1.png';
+import investmentIndicatorsImage from '@/assets/feature2.png';
+import financialAnalysisImage from '@/assets/feature3.png';
+import stockValuationImage from '@/assets/feature4.png';
 
 const features = [
   {
     icon: LayoutDashboard,
     title: "Overview",
     description: "기업의 핵심 정보를 요약 정리하여 분석 구조를 빠르게 파악할 수 있도록 전체적인 윤곽을 제공합니다.",
-    image: chatImage,
+    image: overviewImage,
     alt: "PB.ai Overview - Company analysis overview"
   },
   {
     icon: BarChart3,
     title: "재무현황 분석",
     description: "재무 건전성과 경영 역량을 종합적으로 진단하여 기업의 재무 상태를 한눈에 보여줍니다.",
-    image: portfolioImage,
+    image: financialAnalysisImage,
     alt: "PB.ai Financial Analysis - Financial health diagnosis"
   },
   {
     icon: TrendingUp,
     title: "투자지표",
     description: "주당지표와 밸류에이션 멀티풀 등 핵심 투자 지표를 연도별로 제공하여 투자 매력을 직관적으로 파악하게 합니다.",
-    image: chatImage,
+    image: investmentIndicatorsImage,
     alt: "PB.ai Investment Indicators - Key investment metrics"
   },
   {
     icon: Scale,
     title: "주식가치평가",
     description: "기업의 내재 가치를 산출하고 현재 시장 가격과 비교하여 저평가 여부와 투자 매력도를 판단합니다.",
-    image: portfolioImage,
+    image: stockValuationImage,
     alt: "PB.ai Stock Valuation - Intrinsic value analysis"
   }
 ];
@@ -52,7 +54,7 @@ const KeyFeatures = () => {
             투자의 모든 단계를 지원하는 AI 도구
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-2 gap-8">
           {features.map((feature, index) => (
             <motion.div
@@ -66,14 +68,14 @@ const KeyFeatures = () => {
               <div className="glass-card overflow-hidden h-full hover:border-primary/30 transition-colors duration-300">
                 {/* Image container */}
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img 
-                    src={feature.image} 
+                  <img
+                    src={feature.image}
                     alt={feature.alt}
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 </div>
-                
+
                 {/* Content */}
                 <div className="p-6">
                   <div className="flex items-center gap-3 mb-3">
