@@ -14,7 +14,23 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      early_access_emails: {
+        Row: {
+          id: number
+          email: string
+          created_at: string
+        }
+        Insert: {
+          id?: number
+          email: string
+          created_at?: string
+        }
+        Update: {
+          id?: number
+          email?: string
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

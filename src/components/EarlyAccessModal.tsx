@@ -34,29 +34,12 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
       // 실무 방법 1: Supabase에 저장
       const { error } = await supabase
         .from('early_access_emails')
-        .insert([{ email, created_at: new Date().toISOString() }]);
+        // @ts-expect-error - Supabase 타입 생성 대기 중
+        .insert({ email });
 
       if (error) {
         // 테이블이 없거나 에러 발생 시
         console.error('Supabase error:', error);
-
-        // 실무 방법 2: 백엔드 API 호출 (예시)
-        // const response = await fetch('/api/early-access', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ email })
-        // });
-        // if (!response.ok) throw new Error('API 호출 실패');
-
-        // 실무 방법 3: 이메일 마케팅 서비스 API (예시 - Mailchimp)
-        // const response = await fetch('https://us1.api.mailchimp.com/3.0/lists/{list_id}/members', {
-        //   method: 'POST',
-        //   headers: {
-        //     'Authorization': `Bearer ${MAILCHIMP_API_KEY}`,
-        //     'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({ email_address: email, status: 'subscribed' })
-        // });
 
         // 개발 중에는 로컬 스토리지에 임시 저장
         const existingEmails = JSON.parse(localStorage.getItem('early_access_emails') || '[]');
@@ -65,12 +48,12 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
 
         toast({
           title: "등록 완료!",
-          description: "얼리 액세스 신청이 완료되었습니다. (개발 모드: 로컬 저장)",
+          description: "사전 신청이 완료되었습니다. (개발 모드: 로컬 저장)",
         });
       } else {
         toast({
           title: "등록 완료!",
-          description: "얼리 액세스 신청이 완료되었습니다. 곧 연락드리겠습니다.",
+          description: "사전 신청이 완료되었습니다. 곧 연락드리겠습니다.",
         });
       }
 
@@ -120,11 +103,11 @@ const EarlyAccessModal = ({ isOpen, onClose }: EarlyAccessModalProps) => {
 
               {/* Content */}
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold mb-2">얼리 액세스 신청</h2>
+                <h2 className="text-2xl font-bold mb-2">출시 알림 받기</h2>
                 <p className="text-muted-foreground">
                   PB.ai의 첫 번째 사용자가 되어보세요.
                   <br />
-                  출시 알림과 특별 혜택을 받아보실 수 있습니다.
+                  출시 소식과 특별 혜택을 가장 먼저 받아보실 수 있습니다.
                 </p>
               </div>
 
