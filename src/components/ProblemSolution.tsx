@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import analysisImage from '@/assets/analysis-detail.jpg';
+import aiReportVideo from '@/assets/ai_report.mp4';
 
 const chatBubbles = [
   { text: "DCF가 뭔가요?", isUser: true },
@@ -26,7 +26,7 @@ const ProblemSolution = () => {
             더 이상 혼자 고민하지 마세요
           </p>
         </motion.div>
-        
+
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left - Problem (Chat bubbles) */}
           <motion.div
@@ -46,7 +46,7 @@ const ProblemSolution = () => {
                   <p className="text-sm text-muted-foreground">매일 반복되는 질문들</p>
                 </div>
               </div>
-              
+
               <div className="space-y-3">
                 {chatBubbles.map((bubble, index) => (
                   <motion.div
@@ -63,16 +63,16 @@ const ProblemSolution = () => {
                   </motion.div>
                 ))}
               </div>
-              
+
               <div className="mt-6 pt-4 border-t border-white/10">
                 <p className="text-sm text-muted-foreground italic text-center">
-                  "답을 찾기까지 너무 오래 걸려요..."
+                  "너무 많은 숫자와 복잡한 재무 데이터들...무슨 의미인지 모르겠어요ㅠㅠ"
                 </p>
               </div>
             </div>
           </motion.div>
-          
-          {/* Right - Solution (Analysis screenshot) */}
+
+          {/* Right - Solution (Browser window with video) */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -81,36 +81,37 @@ const ProblemSolution = () => {
             className="relative"
           >
             <div className="glass-card overflow-hidden floating-shadow">
-              <div className="p-4 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-primary font-bold text-sm">AI</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">PB.ai 분석 리포트</h3>
-                    <p className="text-sm text-primary">실시간 AI 분석</p>
+              {/* Browser header */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/10">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <div className="bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-lg px-4 py-1.5 text-xs text-white font-semibold">
+                    ✨ 실시간 AI 리포트 분석
                   </div>
                 </div>
+                <div className="w-16" />
               </div>
-              
-              <div className="relative aspect-[4/3]">
-                <img 
-                  src={analysisImage} 
-                  alt="PB.ai Analysis Report - Detailed AI-powered financial analysis"
+
+              {/* Video */}
+              <div className="relative aspect-[4/3] bg-secondary">
+                <video
+                  src={aiReportVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
               </div>
-              
-              <div className="p-4 bg-primary/5">
-                <p className="text-sm md:text-base text-foreground font-medium text-center">
-                  AI가 실시간으로 분석하여 명확한 해답을 제시합니다.
-                </p>
-              </div>
             </div>
-            
+
             {/* Glow */}
-            <div 
+            <div
               className="absolute -inset-4 -z-10 blur-3xl opacity-20"
               style={{
                 background: 'radial-gradient(ellipse at center, hsl(217, 91%, 60%) 0%, transparent 70%)'

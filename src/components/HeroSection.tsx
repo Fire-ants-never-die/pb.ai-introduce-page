@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import dashboardImage from '@/assets/dashboard-main.jpg';
+import screenMvpVideo from '@/assets/screen_mvp.mp4';
 import { Button } from '@/components/ui/button';
 import EarlyAccessModal from './EarlyAccessModal';
 
@@ -12,7 +12,7 @@ const HeroSection = () => {
     target: ref,
     offset: ['start start', 'end start']
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const rotateX = useTransform(scrollYProgress, [0, 1], [0, 10]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
@@ -22,13 +22,13 @@ const HeroSection = () => {
       <section ref={ref} className="relative min-h-screen flex flex-col items-center justify-center px-6 py-24 overflow-hidden">
         {/* Animated background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(222,47%,6%)] via-background to-background" />
-        <div 
+        <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] opacity-30"
           style={{
             background: 'radial-gradient(ellipse at center, hsl(217, 91%, 60%) 0%, transparent 60%)'
           }}
         />
-        
+
         {/* Content */}
         <div className="relative z-10 text-center max-w-5xl mx-auto mb-16">
           <motion.div
@@ -44,7 +44,7 @@ const HeroSection = () => {
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
               검증된 가치평가 모델과 생성형 AI의 만남.
             </p>
-            
+
             {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -56,13 +56,13 @@ const HeroSection = () => {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-6 text-lg rounded-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 group"
               >
-                Get Early Access
+                지금 바로 시작하기
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
           </motion.div>
         </div>
-      
+
       {/* Floating Browser Window */}
       <motion.div
         style={{ y, rotateX, scale }}
@@ -88,20 +88,23 @@ const HeroSection = () => {
               </div>
               <div className="w-16" />
             </div>
-            
-            {/* Screenshot */}
+
+            {/* Video */}
             <div className="relative aspect-[16/10] bg-secondary">
-              <img 
-                src={dashboardImage} 
-                alt="PB.ai Dashboard - AI-powered financial analysis platform"
+              <video
+                src={screenMvpVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
             </div>
           </div>
-          
+
           {/* Glow effect */}
-          <div 
+          <div
             className="absolute -inset-4 -z-10 blur-3xl opacity-30"
             style={{
               background: 'radial-gradient(ellipse at center, hsl(217, 91%, 60%) 0%, transparent 70%)'
@@ -110,7 +113,7 @@ const HeroSection = () => {
         </div>
       </motion.div>
       </section>
-      
+
       <EarlyAccessModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
