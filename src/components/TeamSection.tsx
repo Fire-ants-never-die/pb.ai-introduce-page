@@ -1,23 +1,29 @@
 import { motion } from 'framer-motion';
+import geumjuImg from '../assets/geumju.jpg';
+import jinwooImg from '../assets/jinwoo.jpg';
+import nanseulImg from '../assets/nanseul.jpg';
 
 const teamMembers = [
   {
     name: "이금주",
     role: "CEO",
     description: "기획 & 디자인",
-    avatar: "👩‍💼"
+    avatar: geumjuImg,
+    imagePosition: "center"
   },
   {
     name: "최진우",
-    role: "Tech Lead",
+    role: "AI Engineer",
     description: "AI & 데이터 분석",
-    avatar: "👨‍💻"
+    avatar: jinwooImg,
+    imagePosition: "center"
   },
   {
     name: "김난슬",
-    role: "Developer",
+    role: "Full Stack Developer",
     description: "풀스택 개발",
-    avatar: "👩‍💻"
+    avatar: nanseulImg,
+    imagePosition: "90% center"
   }
 ];
 
@@ -42,7 +48,7 @@ const TeamSection = () => {
             금융과 기술의 만남을 이끄는 팀
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-3 gap-6 md:gap-8">
           {teamMembers.map((member, index) => (
             <motion.div
@@ -55,10 +61,15 @@ const TeamSection = () => {
             >
               <div className="glass-card p-8 text-center hover:border-primary/30 transition-all duration-300">
                 {/* Avatar */}
-                <div className="w-[60%] aspect-square rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center text-6xl mx-auto mb-6">
-                  {member.avatar}
+                <div className="w-[60%] aspect-square rounded-full overflow-hidden mx-auto mb-6 border-2 border-primary/20">
+                  <img
+                    src={member.avatar}
+                    alt={member.name}
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: member.imagePosition }}
+                  />
                 </div>
-                
+
                 {/* Info */}
                 <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
                 <p className="text-primary font-medium text-sm mb-2">{member.role}</p>
