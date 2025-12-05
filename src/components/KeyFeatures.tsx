@@ -1,22 +1,26 @@
 import { motion } from 'framer-motion';
-import { MessageSquare, PieChart } from 'lucide-react';
-import chatImage from '@/assets/chat-interface.jpg';
-import portfolioImage from '@/assets/portfolio-page.jpg';
+import { LayoutDashboard, BarChart3, TrendingUp, Scale } from 'lucide-react';
 
 const features = [
   {
-    icon: MessageSquare,
-    title: "AI 금융 챗봇",
-    description: "궁금한 건 언제든 물어보세요. 금융 특화 AI 챗봇.",
-    image: chatImage,
-    alt: "PB.ai Chat Interface - AI-powered financial assistant"
+    icon: LayoutDashboard,
+    title: "Overview",
+    description: "기업의 핵심 정보를 요약 정리하여 분석 구조를 빠르게 파악할 수 있도록 전체적인 윤곽을 제공합니다."
   },
   {
-    icon: PieChart,
-    title: "포트폴리오 관리",
-    description: "스마트한 자산 배분과 리밸런싱 알림.",
-    image: portfolioImage,
-    alt: "PB.ai Portfolio Management - Smart asset allocation"
+    icon: BarChart3,
+    title: "재무현황 분석",
+    description: "재무 건전성과 경영 역량을 종합적으로 진단하여 기업의 재무 상태를 한눈에 보여줍니다."
+  },
+  {
+    icon: TrendingUp,
+    title: "투자지표",
+    description: "주당지표와 밸류에이션 멀티풀 등 핵심 투자 지표를 연도별로 제공하여 투자 매력을 직관적으로 파악하게 합니다."
+  },
+  {
+    icon: Scale,
+    title: "주식가치평가",
+    description: "기업의 내재 가치를 산출하고 현재 시장 가격과 비교하여 저평가 여부와 투자 매력도를 판단합니다."
   }
 ];
 
@@ -39,37 +43,24 @@ const KeyFeatures = () => {
           </p>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <div className="glass-card overflow-hidden h-full hover:border-primary/30 transition-colors duration-300">
-                {/* Image container */}
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <img 
-                    src={feature.image} 
-                    alt={feature.alt}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                </div>
-                
-                {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center">
-                      <feature.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground">{feature.title}</h3>
+              <div className="glass-card p-6 h-full hover:border-primary/30 transition-colors duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                    <feature.icon className="w-6 h-6 text-primary" />
                   </div>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-foreground">{feature.title}</h3>
                 </div>
+                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
             </motion.div>
           ))}
