@@ -23,7 +23,7 @@ const features = [
   {
     icon: TrendingUp,
     title: "투자지표",
-    description: "주당지표와 밸류에이션 멀티풀 등 핵심 투자 지표를 연도별로 제공하여 투자 매력을 직관적으로 파악하게 합니다.",
+    description: "주당지표와 밸류에이션 멀티플 등 핵심 투자 지표를 연도별로 제공하여 투자 매력을 직관적으로 파악하게 합니다.",
     image: investmentIndicatorsImage,
     alt: "PB.ai Investment Indicators - Key investment metrics"
   },
